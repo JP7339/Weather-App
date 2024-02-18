@@ -1,10 +1,13 @@
 //go to https://api.openweathermap.org to generate your own key, then added to apiKey
-const apiKey = "";
-const apiUrl = "https://api.openweathermap.org/data/2.5/weather?&units=imperial&q=";
+var tempu = "";
+const apiKey = "d2d15e9f7ce926e8497f6f9989e0bbbe";
+var apiUrl = "https://api.openweathermap.org/data/2.5/weather?&units=imperial&q=";
 
 const searchBox = document.querySelector(".search input");
-const searchBtn = document.querySelector(".search button");
+const searchBtn = document.querySelector(".searchbtn");
 const weahterIcon = document.querySelector(".weather-icon");
+const fahrenheitbtn = document.querySelector(".fahrenheit");
+const celsiusbtn = document.querySelector(".celsius");
 
 async function checkWeather(city){
     const response = await fetch(apiUrl + city + '&appid=' + apiKey);
@@ -49,8 +52,28 @@ async function checkWeather(city){
     
 }
 
+ async function switchToF(){
+    apiUrl = "https://api.openweathermap.org/data/2.5/weather?&units=imperial&q=";
+}
+
+async function switchToC(){
+    apiUrl = "https://api.openweathermap.org/data/2.5/weather?&units=metric&q=";
+}
+
+
 searchBtn.addEventListener('click', ()=>{
-        checkWeather(searchBox.value);
+    checkWeather(searchBox.value);
+})
+
+fahrenheitbtn.addEventListener('click', ()=>{
+    switchToF();
+    checkWeather(searchBox.value);
+
+})
+
+celsiusbtn.addEventListener("click", ()=>{
+    switchToC();
+    checkWeather(searchBox.value);
 })
     
 
