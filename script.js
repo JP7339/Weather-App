@@ -1,5 +1,4 @@
 //go to https://api.openweathermap.org to generate your own key, then added to apiKey
-var tempu = "";
 const apiKey = "d2d15e9f7ce926e8497f6f9989e0bbbe";
 var apiUrl = "https://api.openweathermap.org/data/2.5/weather?&units=imperial&q=";
 
@@ -8,6 +7,8 @@ const searchBtn = document.querySelector(".searchbtn");
 const weahterIcon = document.querySelector(".weather-icon");
 const fahrenheitbtn = document.querySelector(".fahrenheit");
 const celsiusbtn = document.querySelector(".celsius");
+
+var wind = ' mph';
 
 async function checkWeather(city){
     const response = await fetch(apiUrl + city + '&appid=' + apiKey);
@@ -23,7 +24,7 @@ async function checkWeather(city){
         document.querySelector(".city").innerHTML = data.name;
         document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + '&deg';
         document.querySelector(".humidity").innerHTML = data.main.humidity + '%';
-        document.querySelector(".wind").innerHTML = data.wind.speed + ' mph';
+        document.querySelector(".wind").innerHTML = data.wind.speed + wind;
 
         switch (data.weather[0].main) {
             case "Clear":
@@ -52,12 +53,17 @@ async function checkWeather(city){
     
 }
 
- async function switchToF(){
+async function switchToF(){
     apiUrl = "https://api.openweathermap.org/data/2.5/weather?&units=imperial&q=";
+    wind = ' mph'
+
 }
 
 async function switchToC(){
     apiUrl = "https://api.openweathermap.org/data/2.5/weather?&units=metric&q=";
+    wind = ' km/h'
+
+
 }
 
 
@@ -67,6 +73,7 @@ searchBtn.addEventListener('click', ()=>{
 
 fahrenheitbtn.addEventListener('click', ()=>{
     switchToF();
+
     checkWeather(searchBox.value);
 
 })
